@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
+using Object = UnityEngine.Object;
 
 public class Bootstrap : MonoBehaviour
 {
@@ -17,7 +20,8 @@ public class Bootstrap : MonoBehaviour
     private void Awake()
     {
         resolver = new ObjectResolver();
-        resolver.RegisterInstance(this);
+        resolver.CollectInjectables();
+        resolver.RegisterInstance<ObjectResolver>(this,Lifetime.SceneScoped);
 
         foreach (var obj in registeredObjects)
         {
@@ -41,7 +45,7 @@ public class Bootstrap : MonoBehaviour
     }
 
     //Essentially takes in a game object and registers it to the object resolver.
-    private void RegisterObject(Object obj)
+    private void RegisterObject(object obj)
     {
         if (obj == null)
             return;
@@ -50,15 +54,22 @@ public class Bootstrap : MonoBehaviour
         {
             MonoBehaviour[] allBehaviours = go.GetComponentsInChildren<MonoBehaviour>();
             foreach (var mb in allBehaviours)
-                resolver.RegisterInstance(mb);
+            {
+                var type = mb.GetType();
+                resolver.RegisterInstance(type, mb, Lifetime.SceneScoped);
+
+            }
         }
         else if (obj is MonoBehaviour mb)
         {
-            resolver.RegisterInstance(mb);
+            var type = mb.GetType();
+            resolver.RegisterInstance(type, mb, Lifetime.SceneScoped);
         }
         else
         {
-            resolver.RegisterInstance(obj);
+            var type = obj.GetType();
+
+            resolver.RegisterInstance(type,obj, Lifetime.SceneScoped);
         }
     }
 }

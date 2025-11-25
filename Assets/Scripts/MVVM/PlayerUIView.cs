@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerUIView : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI velocityText;
-    [SerializeField] private TextMeshProUGUI magnitudeVelocityText;
+    [Inject] private IUIService service;
+
 
     public void Bind(PlayerViewModel vm)
     {
@@ -20,11 +20,11 @@ public class PlayerUIView : MonoBehaviour
 
     public void UpdateVelocity(Vector3 vector3)
     {
-        velocityText.text = vector3.ToString();
+        service.SetText("PLAYER_UI", "velocityMVVM", vector3.ToString());
     }
 
     public void UpdateMagnitude(float magnitude)
     {
-        magnitudeVelocityText.text = magnitude.ToString();
+        service.SetText("PLAYER_UI", "magnitudeMVVM", magnitude.ToString());
     }
 }

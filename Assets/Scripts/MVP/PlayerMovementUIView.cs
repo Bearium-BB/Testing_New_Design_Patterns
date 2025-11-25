@@ -6,11 +6,12 @@ using UnityEngine;
 
 public class PlayerMovementUIView : MonoBehaviour, IPlayerMovementUIView
 {
-    public TextMeshProUGUI textBox;
+    [Inject] private IUIService service;
+
     public event Action<Vector2> OnMoveInput;
 
     public void UpdateUI(Vector3 velocity)
     {
-        textBox.text = velocity.ToString();
+        service.SetText("PLAYER_UI", "velocityMVP", velocity.ToString());
     }
 }

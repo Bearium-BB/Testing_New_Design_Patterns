@@ -1,5 +1,17 @@
 
 //This makes attribute tag injection
 //[Inject]
-[System.AttributeUsage(System.AttributeTargets.Field)]
-public class InjectAttribute : System.Attribute { }
+using System;
+
+[AttributeUsage(AttributeTargets.Field)]
+public class InjectAttribute : Attribute
+{
+    public Type ResolveAs { get; }
+
+    // optional constructor for convenience
+    public InjectAttribute(Type resolveAs = null)
+    {
+        ResolveAs = resolveAs;
+    }
+}
+

@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class CombatActionCombiningUIView : MonoBehaviour
 {
-    public TextMeshProUGUI textBoxE1;
-    public TextMeshProUGUI textBoxE2;
-    public TextMeshProUGUI textBoxCASO;
+    [Inject] private IUIService service;
+
 
     public void Bind(CombatActionCombiningViewModel vm)
     {
@@ -21,23 +20,23 @@ public class CombatActionCombiningUIView : MonoBehaviour
 
     public void UpdateElementUI(CombatActionSpellElement[] arr)
     {
-
         if (arr[0] != null)
         {
-            textBoxE1.text = arr[0].name;
+            service.SetText("CASO_COMB", "E1", arr[0].name);
         }
         else
         {
-            textBoxE1.text = "no element";
+            service.SetText("CASO_COMB", "E1", "no element");
+
         }
 
         if (arr[1] != null)
         {
-            textBoxE2.text = arr[1].name;
+            service.SetText("CASO_COMB", "E2", arr[1].name);
         }
         else
         {
-            textBoxE2.text = "no element";
+            service.SetText("CASO_COMB", "E2", "no element");
         }
     }
 
@@ -47,12 +46,14 @@ public class CombatActionCombiningUIView : MonoBehaviour
         {
             if (combatActionSO is CombatActionTimerSO caso)
             {
-                textBoxCASO.text = caso.name;
+                service.SetText("CASO_COMB", "COMB", caso.name);
+
             }
         }
         else
         {
-            textBoxCASO.text = "no combatActionSO";
+            service.SetText("CASO_COMB", "COMB", "no combatActionSO");
+
         }
     }
 }
