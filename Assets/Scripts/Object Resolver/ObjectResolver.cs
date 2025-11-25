@@ -57,7 +57,6 @@ public class ObjectResolver
         if (parent != null)
             return parent.Resolve<T>();
 
-        // 4. Nothing found
         throw new Exception($"Cannot resolve type {targetType}");
     }
 

@@ -11,6 +11,7 @@ public class CombatActionSpellElement : CombatActionTimerSO
     {
 
     }
+
     public override void UpdateAction(CombatActionDataMB data)
     {
 

@@ -11,11 +11,14 @@ public class CombatActionCombiningUIView : MonoBehaviour
     public void Bind(CombatActionCombiningViewModel vm)
     {
         vm.elementUIUpdate += UpdateElementUI;
+        vm.combatActionSOUIUpdate += UpdateCombatActionSO;
+
         UpdateElementUI(vm.UpdateUIElement());
 
-        vm.combatActionSOUIUpdate += UpdateCombatActionSO;
         UpdateCombatActionSO(vm.UpdateUICombatActionSO());
     }
+
+
 
 
     public void UpdateElementUI(CombatActionSpellElement[] arr)

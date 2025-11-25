@@ -17,7 +17,7 @@ public class CombatActionCombiningInstaller : MonoBehaviour
     public CombatActionCombiningUIView combatActionCombiningUIView;
 
 
-    private void Awake()
+    private void Start()
     {
         CombatActionCombiningModel modelCom = new CombatActionCombiningModel(
             elementOneCombatActionSpellElement, 
